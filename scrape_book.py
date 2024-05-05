@@ -19,7 +19,7 @@ class ScrapeBook:
         for i in range(1,self.num):
             print(i)
             self.driver.get(self.url)
-            book = self.driver.find_element(By.XPATH, f"(//li[@class='pgdbetext']/a)[{i}]")
+            book = self.driver.find_element(By.XPATH, f"(//div[@class='page_content']//li[@class='pgdbetext']/a)[{i}]")
             href = book.get_attribute('href')
             self.extract_book_info(href)
 
