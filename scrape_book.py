@@ -14,7 +14,8 @@ class ScrapeBook:
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(options=chrome_options)
         self.data_folder = '/Users/kevinhsu/Documents/GitHub/Book_Scraping/data'
-        self.num = 201
+        self.num = 205
+        self.book_num = 1
     def extract_book_url(self):
         for i in range(1,self.num):
             print(i)
@@ -47,7 +48,7 @@ class ScrapeBook:
         self.write_to_file()
 
     def write_to_file(self):
-        filename = f"{self.title}.json"
+        filename = f"{self.title}-{self.book_num}.json"
         book_data = {
             "title": self.title,
             "author": self.author,
@@ -57,6 +58,7 @@ class ScrapeBook:
         full_path = os.path.join(self.data_folder, filename)
         with open(full_path, "w", encoding='utf-8') as f:
             json.dump(book_data, f, ensure_ascii=False, indent=4)
+        self.book_num += 1
         
     def close_browser(self):
         self.driver.quit()
