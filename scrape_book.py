@@ -14,16 +14,15 @@ class ScrapeBook:
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(options=chrome_options)
         self.data_folder = '/Users/kevinhsu/Documents/GitHub/Book_Scraping/data'
-        self.num = 205
+        self.num = 1
         self.book_num = 1
     def extract_book_url(self):
-        for i in range(1,self.num):
-            print(i)
+        while self.book_num < 200:
+            print(self.book_num)
             self.driver.get(self.url)
-            book = self.driver.find_element(By.XPATH, f"(//div[@class='page_content']//li[@class='pgdbetext']/a)[{i}]")
+            book = self.driver.find_element(By.XPATH, f"(//div[@class='page_content']//li[@class='pgdbetext']/a)[{self.num}]")
             href = book.get_attribute('href')
             self.extract_book_info(href)
-
 
     def extract_book_info(self, url):
         self.driver.get(str(url))
@@ -35,10 +34,11 @@ class ScrapeBook:
             content_url = self.driver.find_element(By.XPATH, "//a[@type='text/plain; charset=us-ascii']").get_attribute('href')
             self.extract_book_content(content_url)
         except selenium.common.exceptions.NoSuchElementException:
-            self.num += 1
             print("Can't watch on website")
             print(self.title)
             print(url)
+        finally:
+            self.num += 1
             
 
     def extract_book_content(self, url):
