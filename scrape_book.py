@@ -17,7 +17,7 @@ class ScrapeBook:
         self.num = 1
         self.book_num = 1
     def extract_book_url(self):
-        while self.book_num < 200:
+        while self.book_num < 201:
             print(self.book_num)
             self.driver.get(self.url)
             book = self.driver.find_element(By.XPATH, f"(//div[@class='page_content']//li[@class='pgdbetext']/a)[{self.num}]")
